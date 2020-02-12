@@ -7785,8 +7785,11 @@ class TCPDF {
 				}
 				closedir($handle);
 			}
-			foreach($this->imagekeys as $file) {
-				unlink($file);
+            foreach($this->imagekeys as $file_name) {
+                if (strpos($file_name, '__tcpdf_'.$this->file_id.'_') === 0) {
+                    //only unlink if is cached file
+                    unlink($file_name);
+                }
 			}
 		}
 		$preserve = array(
